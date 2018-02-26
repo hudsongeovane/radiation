@@ -1,1 +1,1 @@
-./Debug/main.cpp.o
+./Debug/main.cpp.o ./Debug/realizationProblem.cpp.o ./Debug/src_algorithms_realizationAlgorithm_gsc.cpp.o

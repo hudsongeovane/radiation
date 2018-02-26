@@ -13,7 +13,7 @@ CurrentFileName        :=
 CurrentFilePath        :=
 CurrentFileFullPath    :=
 User                   :=hudson
-Date                   :=20/02/18
+Date                   :=26/02/18
 CodeLitePath           :=/home/hudson/.codelite
 LinkerName             :=/usr/bin/g++
 SharedObjectLinkerName :=/usr/bin/g++ -shared -fPIC
@@ -60,7 +60,7 @@ AS       := /usr/bin/as
 ## User defined environment variables
 ##
 CodeLiteDir:=/usr/share/codelite
-Objects0=$(IntermediateDirectory)/main.cpp$(ObjectSuffix) 
+Objects0=$(IntermediateDirectory)/main.cpp$(ObjectSuffix) $(IntermediateDirectory)/realizationProblem.cpp$(ObjectSuffix) $(IntermediateDirectory)/src_algorithms_realizationAlgorithm_gsc.cpp$(ObjectSuffix) 
 
 
 
@@ -98,6 +98,22 @@ $(IntermediateDirectory)/main.cpp$(DependSuffix): main.cpp
 
 $(IntermediateDirectory)/main.cpp$(PreprocessSuffix): main.cpp
 	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/main.cpp$(PreprocessSuffix) main.cpp
+
+$(IntermediateDirectory)/realizationProblem.cpp$(ObjectSuffix): realizationProblem.cpp $(IntermediateDirectory)/realizationProblem.cpp$(DependSuffix)
+	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/hudson/Documentos/radiation/radiation/realizationProblem.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/realizationProblem.cpp$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/realizationProblem.cpp$(DependSuffix): realizationProblem.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/realizationProblem.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/realizationProblem.cpp$(DependSuffix) -MM realizationProblem.cpp
+
+$(IntermediateDirectory)/realizationProblem.cpp$(PreprocessSuffix): realizationProblem.cpp
+	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/realizationProblem.cpp$(PreprocessSuffix) realizationProblem.cpp
+
+$(IntermediateDirectory)/src_algorithms_realizationAlgorithm_gsc.cpp$(ObjectSuffix): src/algorithms/realizationAlgorithm/gsc.cpp $(IntermediateDirectory)/src_algorithms_realizationAlgorithm_gsc.cpp$(DependSuffix)
+	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/hudson/Documentos/radiation/radiation/src/algorithms/realizationAlgorithm/gsc.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/src_algorithms_realizationAlgorithm_gsc.cpp$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/src_algorithms_realizationAlgorithm_gsc.cpp$(DependSuffix): src/algorithms/realizationAlgorithm/gsc.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/src_algorithms_realizationAlgorithm_gsc.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/src_algorithms_realizationAlgorithm_gsc.cpp$(DependSuffix) -MM src/algorithms/realizationAlgorithm/gsc.cpp
+
+$(IntermediateDirectory)/src_algorithms_realizationAlgorithm_gsc.cpp$(PreprocessSuffix): src/algorithms/realizationAlgorithm/gsc.cpp
+	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/src_algorithms_realizationAlgorithm_gsc.cpp$(PreprocessSuffix) src/algorithms/realizationAlgorithm/gsc.cpp
 
 
 -include $(IntermediateDirectory)/*$(DependSuffix)

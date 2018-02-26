@@ -94,5 +94,16 @@
   </Settings>
   <VirtualDirectory Name="src">
     <File Name="main.cpp"/>
+    <File Name="realizationProblem.h"/>
+    <File Name="realizationProblem.cpp"/>
+    <VirtualDirectory Name="algorithms">
+      <VirtualDirectory Name="realizationAlgorithm">
+        <File Name="src/algorithms/realizationAlgorithm/realizationAlgorithm.h"/>
+        <File Name="src/algorithms/realizationAlgorithm/gsc.cpp"/>
+      </VirtualDirectory>
+    </VirtualDirectory>
+  </VirtualDirectory>
+  <VirtualDirectory Name="testData">
+    <File Name="testData/testdata1.dat"/>
   </VirtualDirectory>
 </CodeLite_Project>
