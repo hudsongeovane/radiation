@@ -1,7 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include "realizationProblem.h"
-
+#include "/home/hudson/Documentos/radiation/radiation/src/algorithms/realizationAlgorithm/gsc.cpp"
 
 //TODO: Implement destructors.
 
@@ -29,7 +29,14 @@ int main(int argc, char **argv)
     if (testdata1.is_open()) {
         problem->loadMatrixFromFile(testdata1);
     }
-    printMatrix(problem);
+    //printMatrix(problem);
+    
+    gscAlgorithm * t = new gscAlgorithm(problem);
+    t->solve();
+    
+    std::ofstream _file;
+    _file.open("outputFIle.txt",std::fstream::out);
+    t->printToFile(_file);
 
 	return 0;
 }
