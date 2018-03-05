@@ -24,19 +24,22 @@ int main(int argc, char **argv)
 	realizationProblem * problem = new realizationProblem();
     
     std::ifstream testdata1;
-    testdata1.open("../testData/testdata1.dat", std::ifstream::in);
+    testdata1.open("../testData/testdata2.dat", std::ifstream::in);
+    
+    std::ofstream _file("../outputFile.txt",std::ofstream::out);
     
     if (testdata1.is_open()) {
         problem->loadMatrixFromFile(testdata1);
     }
-    //printMatrix(problem);
+    printMatrix(problem);
     
-    gscAlgorithm * t = new gscAlgorithm(problem);
+    realizationAlgorithm * t = new gscAlgorithm(problem);
     t->solve();
     
-    std::ofstream _file;
-    _file.open("outputFIle.txt",std::fstream::out);
     t->printToFile(_file);
-
+    if(t->checkResult()) cout << "It worked!" << endl;
+    _file.close();
+    
+    delete problem;
 	return 0;
 }

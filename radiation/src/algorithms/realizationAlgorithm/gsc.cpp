@@ -27,18 +27,17 @@ using std::endl;
  */
 
 class gscAlgorithm : public realizationAlgorithm {
-    void fillSegmentWithInterval(int s, int line, int l, int r) {
-        for(int i = l; i<=r; i++)
-            segments[s][line][i] = 1;
-    }
 public:
     gscAlgorithm(realizationProblem * problem) {
-        this->matrix = problem->matrix;
         this->m = problem->m;
         this->n = problem->n;
+        loadMatrix(problem->matrix);
     }
     void solve() {
-        int A[m][n];
+        vector< vector<int> > A(m,vector<int>(n,0));
+        vector< vector<int> > TEMP(m,vector<int>(n,0));
+        
+        
         int u = 9999999, L = -1;
         for(int i = 0; i < this->m; ++i) {
             for(int j = 0; j < this->n; ++j) {
@@ -47,97 +46,157 @@ public:
                 L = max(L,matrix[i][j]);
             }
         }
-        
+        /*
+         * Part 1:
+         * Removing background intensity.
+         * the lower value in the matrix will define the first segment.
+         */
         for(int i = 0; i < this->m; ++i) {
             for(int j = 0; j < this->n; ++j) {
                 A[i][j] -= u;
             }
         }
-        
-        double uu = 0;
-        while (((uu/2) * (uu+1)) < L) uu++;
-        u = (int) uu;
-        std::cout << "Valor de u:" << uu << std::endl;
-        
-        int TEMP[m][n];
-        
-        /*
-         * Set of intervals.
-         * pair < intLine, pair <intL, intR> >
-         * On line intLine there are intervals from intL to intR
+        coefficients.push_back(u);
+        vector< vector<int> > segment1(m,vector<int>(n,0));
+        for(int a = 0; a < m; ++a) {
+            for(int b = 0; b < n; ++b) {
+                segment1[a][b] = 1;
+            }
+        }
+        segments.push_back(segment1);
+    
+        /* Part two:
+         * Iterating until A is empty.
          */
-        vector< pair< int, pair<int,int> > > intervals; 
+        double uu = 0;
+        while (((uu/2) * (uu+1)) < L) uu += 1.;
+        u = (int) uu;
+        bool aequalzero=false;
+ 
         
-        for(int i = 0; i < this->m; ++i) {
-            for(int j = 0; j < this->n; ++j) {
-                if (A[i][j] >= u) {
-                    TEMP[i][j] = 1;
-                    if (!intervals.empty()) {
-                        if (intervals.back().first == i && intervals.back().second.second == j-1) {
-                            pair< int, pair<int,int> > tmp = make_pair(i,make_pair(intervals.back().second.first,j));
-                            intervals.pop_back();
-                            intervals.push_back(tmp);
+        vector< vector< vector<int> > > _segments;
+        vector<int> _coefficients;
+        vector< pair< int, pair<int,int> > > intervals;
+        
+        do {
+            _segments.clear();
+            _coefficients.clear();
+            
+            
+            for(int i = 0; i<m; i++)
+                for(int j = 0; j < n; j++)
+                    TEMP[i][j]=0;
+                    
+            
+            /*
+             * Set of intervals.
+             * pair < intLine, pair <intL, intR> >
+             * On line intLine there are intervals from intL to intR
+             */
+            intervals.clear();
+            
+            for(int i = 0; i < this->m; ++i) {
+                for(int j = 0; j < this->n; ++j) {
+                    if (A[i][j] >= u) {
+                        TEMP[i][j] = 1;
+                        if (!intervals.empty()) {
+                            if (intervals.back().first == i && intervals.back().second.second == j-1) {
+                                pair< int, pair<int,int> > tmp = make_pair(i,make_pair(intervals.back().second.first,j));
+                                intervals.pop_back();
+                                intervals.push_back(tmp);
+                            }
+                            else intervals.push_back(make_pair(i,make_pair(j,j)));
                         }
                         else intervals.push_back(make_pair(i,make_pair(j,j)));
                     }
-                    else intervals.push_back(make_pair(i,make_pair(j,j)));
+                    else TEMP[i][j] = 0;
                 }
-                else TEMP[i][j] = 0;
             }
-        }
-        int total_segments = 0;
-        int v[intervals.size()] = { };
-        for(unsigned int i = 0; i < intervals.size(); i++) {
-            //std::cout << x.first << " " << x.second.first << " " << x.second.second << std::endl;
-            v[intervals[i].first]++;
-            total_segments = max(total_segments,v[intervals[i].first]);
-        }
-        
+            //printing matrix A
+            /*for(int i = 0; i < m; ++i) {
+                for(int k = 0; k < n; ++k) {
+                    cout << A[i][k];
+                    if (k+1 != n) cout << "\t";
+                    else cout << endl;
+                }
+            }*/
+             
+                int total_segments = 0;
 
-        for(int i = 0; i<total_segments; i++) {
-            coefficients.push_back(u);
-            
-            int ** segment = new int*[n];
-            for(int j = 0; j < n; ++j) segment[j] = new int[m];
-            
-            for(int a = 0; a < m; ++a) {
-                for(int b = 0; b < n; ++b) {
-                    segment[a][b] = 0;
+                vector<int> vetor(m,0);
+
+                for(unsigned int i = 0; i < intervals.size(); i++) {
+                    int k = intervals.at(i).first;
+                    vetor[k]++;
+                    
+                }
+                for(int i = 0; i < m; i++) {
+                    total_segments = max(total_segments,vetor[i]);
+                }
+        
+            //Adding empty segments to the vector of segments.
+            for(int i = 0; i<total_segments; i++) {
+                _coefficients.push_back(u);
+                vector< vector<int> > segment(m,vector<int>(n,0));
+                
+                for(int a = 0; a < m; ++a) {
+                    for(int b = 0; b < n; ++b) {
+                        segment[a][b] = 0;
+                    }
+                }
+                _segments.push_back(segment);
+            }
+
+            /*
+             * Now its time to create the segments for this iteration.
+             * Coefficients are already set up.
+             */
+            vector<int> added(intervals.size(),0); //mark which intervals were used already
+            for(int s = 0; s < total_segments; s++) {
+                set<int> used_lines;
+                used_lines.clear();
+                for(unsigned int i = 0; i < intervals.size(); i++) {
+                    if((added[i] == 0) && (used_lines.find(intervals[i].first) == used_lines.end())) {
+                        //filling the intervals on the segments
+                        //from left to right
+                        for(int z = intervals[i].second.first; z<=intervals[i].second.second; z++)
+                            _segments[s][intervals[i].first][z] = 1;
+                        
+                        //for not adding this intervall anymore
+                        added[i] = 1;
+                        
+                        //for not filling another interval from this line on this segment
+                        used_lines.insert(intervals[i].first);
+                    }
                 }
             }
-            segments.push_back(segment);
-        }
-        
-        /*
-         * Now its time to create the segments for this iteration.
-         * Coefficients are already set up.
-         */
-        int added[intervals.size()] = { }; //mark which intervals were used already
-        for(int s = 0; s < total_segments; s++) {
-            set<int> used_lines;
-            used_lines.clear();
-            for(unsigned int i = 0; i < intervals.size(); i++) {
-                if((added[i] == 0) && (used_lines.find(intervals[i].first) == used_lines.end())) {
-                    fillSegmentWithInterval(s,intervals[i].first,intervals[i].second.first,intervals[i].second.second);
-                    added[i] = 1;
-                    used_lines.insert(intervals[i].first);
+            
+            aequalzero=true;
+            
+            for(int i = 0; i < m; ++i) {
+                for(int j = 0; j < n; ++j) {
+                    if (TEMP[i][j] > 0) A[i][j] -= u;
+                    if (A[i][j] != 0) aequalzero = false;
                 }
             }
-        }
-        
-        
-        for(int i = 0; i < this->m; ++i) {
-            for(int j = 0; j < this->n; ++j) {
-                if (TEMP[i][j]) A[i][j] -= u;
+            
+            u--;
+            
+            /*
+             * Adding segments and coeffiecients to the real vectors.
+             * 
+             * The next iteration will start with empty _segments and _coefficients
+             */
+            for(vector< vector<int> > v : _segments) {
+                segments.push_back(v);
             }
-        }
+            for(int v : _coefficients) {
+                coefficients.push_back(v);
+            }
+            
+        } while (!aequalzero);
         
-        for(int i = 0; i < m; ++i)
-        for(int j = 0; j < n; ++j) {
-            cout << A[i][j];
-            if (j+1 != n) cout << "\t";
-            else cout << endl;
-        }
+        cout << segments.size() << " segments" << endl;
         
     }
 };
