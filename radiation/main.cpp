@@ -2,7 +2,7 @@
 #include <fstream>
 #include "realizationProblem.h"
 #include "/home/hudson/Documentos/radiation/radiation/src/algorithms/realizationAlgorithm/gsc.cpp"
-
+#include "/home/hudson/Documentos/radiation/radiation/src/algorithms/realizationAlgorithm/slideWindow.cpp"
 //TODO: Implement destructors.
 
 using std::cout;
@@ -33,7 +33,9 @@ int main(int argc, char **argv)
     }
     printMatrix(problem);
     
-    realizationAlgorithm * t = new gscAlgorithm(problem);
+    //realizationAlgorithm * t = new gscAlgorithm(problem);
+    
+    realizationAlgorithm * t = new slideWindowAlgorithm(problem);
     t->solve();
     
     t->printToFile(_file);

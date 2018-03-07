@@ -13,7 +13,7 @@ CurrentFileName        :=
 CurrentFilePath        :=
 CurrentFileFullPath    :=
 User                   :=hudson
-Date                   :=01/03/18
+Date                   :=07/03/18
 CodeLitePath           :=/home/hudson/.codelite
 LinkerName             :=/usr/bin/g++
 SharedObjectLinkerName :=/usr/bin/g++ -shared -fPIC
@@ -60,7 +60,7 @@ AS       := /usr/bin/as
 ## User defined environment variables
 ##
 CodeLiteDir:=/usr/share/codelite
-Objects0=$(IntermediateDirectory)/main.cpp$(ObjectSuffix) $(IntermediateDirectory)/realizationProblem.cpp$(ObjectSuffix) $(IntermediateDirectory)/src_algorithms_realizationAlgorithm_gsc.cpp$(ObjectSuffix) 
+Objects0=$(IntermediateDirectory)/main.cpp$(ObjectSuffix) $(IntermediateDirectory)/realizationProblem.cpp$(ObjectSuffix) $(IntermediateDirectory)/src_algorithms_realizationAlgorithm_gsc.cpp$(ObjectSuffix) $(IntermediateDirectory)/src_algorithms_realizationAlgorithm_slideWindow.cpp$(ObjectSuffix) 
 
 
 
@@ -114,6 +114,14 @@ $(IntermediateDirectory)/src_algorithms_realizationAlgorithm_gsc.cpp$(DependSuff
 
 $(IntermediateDirectory)/src_algorithms_realizationAlgorithm_gsc.cpp$(PreprocessSuffix): src/algorithms/realizationAlgorithm/gsc.cpp
 	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/src_algorithms_realizationAlgorithm_gsc.cpp$(PreprocessSuffix) src/algorithms/realizationAlgorithm/gsc.cpp
+
+$(IntermediateDirectory)/src_algorithms_realizationAlgorithm_slideWindow.cpp$(ObjectSuffix): src/algorithms/realizationAlgorithm/slideWindow.cpp $(IntermediateDirectory)/src_algorithms_realizationAlgorithm_slideWindow.cpp$(DependSuffix)
+	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/hudson/Documentos/radiation/radiation/src/algorithms/realizationAlgorithm/slideWindow.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/src_algorithms_realizationAlgorithm_slideWindow.cpp$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/src_algorithms_realizationAlgorithm_slideWindow.cpp$(DependSuffix): src/algorithms/realizationAlgorithm/slideWindow.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/src_algorithms_realizationAlgorithm_slideWindow.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/src_algorithms_realizationAlgorithm_slideWindow.cpp$(DependSuffix) -MM src/algorithms/realizationAlgorithm/slideWindow.cpp
+
+$(IntermediateDirectory)/src_algorithms_realizationAlgorithm_slideWindow.cpp$(PreprocessSuffix): src/algorithms/realizationAlgorithm/slideWindow.cpp
+	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/src_algorithms_realizationAlgorithm_slideWindow.cpp$(PreprocessSuffix) src/algorithms/realizationAlgorithm/slideWindow.cpp
 
 
 -include $(IntermediateDirectory)/*$(DependSuffix)
