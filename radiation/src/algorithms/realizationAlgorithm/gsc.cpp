@@ -6,7 +6,6 @@
 
 #include <utility>
 #include <set>
-#include <queue>
 #include <iostream>
 #include <algorithm>
 
@@ -15,7 +14,6 @@ using std::pair;
 using std::make_pair;
 using std::min;
 using std::max;
-using std::queue;
 
 using std::cout;
 using std::endl;

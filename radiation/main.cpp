@@ -3,6 +3,8 @@
 #include "realizationProblem.h"
 #include "/home/hudson/Documentos/radiation/radiation/src/algorithms/realizationAlgorithm/gsc.cpp"
 #include "/home/hudson/Documentos/radiation/radiation/src/algorithms/realizationAlgorithm/slideWindow.cpp"
+#include "/home/hudson/Documentos/radiation/radiation/src/algorithms/realizationAlgorithm/bortfeld.cpp"
+
 //TODO: Implement destructors.
 
 using std::cout;
@@ -24,7 +26,7 @@ int main(int argc, char **argv)
 	realizationProblem * problem = new realizationProblem();
     
     std::ifstream testdata1;
-    testdata1.open("../testData/testdata2.dat", std::ifstream::in);
+    testdata1.open("../testData/testdata1.dat", std::ifstream::in);
     
     std::ofstream _file("../outputFile.txt",std::ofstream::out);
     
@@ -34,8 +36,8 @@ int main(int argc, char **argv)
     printMatrix(problem);
     
     //realizationAlgorithm * t = new gscAlgorithm(problem);
-    
-    realizationAlgorithm * t = new slideWindowAlgorithm(problem);
+    //realizationAlgorithm * t = new slideWindowAlgorithm(problem);
+    realizationAlgorithm * t = new bortfeldAlgorithm(problem);
     t->solve();
     
     t->printToFile(_file);

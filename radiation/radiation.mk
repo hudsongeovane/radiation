@@ -13,7 +13,7 @@ CurrentFileName        :=
 CurrentFilePath        :=
 CurrentFileFullPath    :=
 User                   :=hudson
-Date                   :=07/03/18
+Date                   :=08/03/18
 CodeLitePath           :=/home/hudson/.codelite
 LinkerName             :=/usr/bin/g++
 SharedObjectLinkerName :=/usr/bin/g++ -shared -fPIC
@@ -60,7 +60,7 @@ AS       := /usr/bin/as
 ## User defined environment variables
 ##
 CodeLiteDir:=/usr/share/codelite
-Objects0=$(IntermediateDirectory)/main.cpp$(ObjectSuffix) $(IntermediateDirectory)/realizationProblem.cpp$(ObjectSuffix) $(IntermediateDirectory)/src_algorithms_realizationAlgorithm_gsc.cpp$(ObjectSuffix) $(IntermediateDirectory)/src_algorithms_realizationAlgorithm_slideWindow.cpp$(ObjectSuffix) 
+Objects0=$(IntermediateDirectory)/main.cpp$(ObjectSuffix) $(IntermediateDirectory)/realizationProblem.cpp$(ObjectSuffix) $(IntermediateDirectory)/src_algorithms_realizationAlgorithm_gsc.cpp$(ObjectSuffix) $(IntermediateDirectory)/src_algorithms_realizationAlgorithm_slideWindow.cpp$(ObjectSuffix) $(IntermediateDirectory)/src_algorithms_realizationAlgorithm_bortfeld.cpp$(ObjectSuffix) 
 
 
 
@@ -122,6 +122,14 @@ $(IntermediateDirectory)/src_algorithms_realizationAlgorithm_slideWindow.cpp$(De
 
 $(IntermediateDirectory)/src_algorithms_realizationAlgorithm_slideWindow.cpp$(PreprocessSuffix): src/algorithms/realizationAlgorithm/slideWindow.cpp
 	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/src_algorithms_realizationAlgorithm_slideWindow.cpp$(PreprocessSuffix) src/algorithms/realizationAlgorithm/slideWindow.cpp
+
+$(IntermediateDirectory)/src_algorithms_realizationAlgorithm_bortfeld.cpp$(ObjectSuffix): src/algorithms/realizationAlgorithm/bortfeld.cpp $(IntermediateDirectory)/src_algorithms_realizationAlgorithm_bortfeld.cpp$(DependSuffix)
+	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/hudson/Documentos/radiation/radiation/src/algorithms/realizationAlgorithm/bortfeld.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/src_algorithms_realizationAlgorithm_bortfeld.cpp$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/src_algorithms_realizationAlgorithm_bortfeld.cpp$(DependSuffix): src/algorithms/realizationAlgorithm/bortfeld.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/src_algorithms_realizationAlgorithm_bortfeld.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/src_algorithms_realizationAlgorithm_bortfeld.cpp$(DependSuffix) -MM src/algorithms/realizationAlgorithm/bortfeld.cpp
+
+$(IntermediateDirectory)/src_algorithms_realizationAlgorithm_bortfeld.cpp$(PreprocessSuffix): src/algorithms/realizationAlgorithm/bortfeld.cpp
+	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/src_algorithms_realizationAlgorithm_bortfeld.cpp$(PreprocessSuffix) src/algorithms/realizationAlgorithm/bortfeld.cpp
 
 
 -include $(IntermediateDirectory)/*$(DependSuffix)

@@ -13,7 +13,9 @@ public:
     vector< vector< vector <int> > > segments;
     vector< vector <int> > matrix;
     int m, n;
+    
     virtual void solve() = 0;
+    
     void loadMatrix(int ** mm) {
         for(int i = 0; i < m; i++) {
             matrix.push_back(vector<int>(n,0));

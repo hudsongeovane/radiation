@@ -26,12 +26,6 @@ private:
         }
         return result;
     }
-public:
-    slideWindowAlgorithm(realizationProblem * problem) {
-        this->m = problem->m;
-        this->n = problem->n;
-        loadMatrix(problem->matrix);
-    }
     vector< vector<int> > solveLine(vector<int> _line) {
         //The leafs go from left to the right.
         vector<int> line(_line);
@@ -68,6 +62,13 @@ public:
         }
         return lineSegments;
     }
+public:
+    slideWindowAlgorithm(realizationProblem * problem) {
+        this->m = problem->m;
+        this->n = problem->n;
+        loadMatrix(problem->matrix);
+    }
+    
     void solve() {
         vector< vector< vector<int> > > lineSegments;
         int maxL = 0;

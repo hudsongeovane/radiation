@@ -11,6 +11,7 @@
         <File Name="src/algorithms/realizationAlgorithm/realizationAlgorithm.h"/>
         <File Name="src/algorithms/realizationAlgorithm/gsc.cpp"/>
         <File Name="src/algorithms/realizationAlgorithm/slideWindow.cpp"/>
+        <File Name="src/algorithms/realizationAlgorithm/bortfeld.cpp"/>
       </VirtualDirectory>
     </VirtualDirectory>
     <File Name="outputFile.txt"/>
